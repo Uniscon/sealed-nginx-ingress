@@ -14,8 +14,6 @@ spec:
         app: nginx-ingress
     spec:
       serviceAccountName: default
-      imagePullSecrets:
-        - name: harbor-registry-secret
       containers:
         - image: nginx/nginx-ingress:1.5.6
           imagePullPolicy: Always

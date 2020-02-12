@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+# update metadata of your applicaion, you need replace sp-sealed-confluence with your app details 
+  name: sp-sealed-confluence
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.org/ssl-services: sp-sealed-confluence
+spec:
+  tls:
+    - hosts:
+# replace <Confluence-web-subdomain> with your domain name
+        - <Confluence-web-subdomain>
+      secretName: sp-sealed-confluence-ssl-cert
+  rules:
+# replace <Confluence-web-subdomain> with your domain name
+    - host: <Confluence-web-subdomain>
+      http:
+        paths:
+          - backend:
+# replace sp-sealed-confluence-servicei, 8090 with clusterIP service name and port of your app
+              serviceName: sp-sealed-confluence-service
+              servicePort: 8090
